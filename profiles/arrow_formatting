@@ -1,0 +1,2 @@
+alias cformat="archery lint --cpplint --fix"
+alias pformat="archery lint --python --fix"

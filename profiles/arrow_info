@@ -1,0 +1,16 @@
+#!/bin/bash
+
+info() {
+   echo '============'
+   echo 'ARROW CONFIG'
+   echo '============'
+   echo '1. ARROW_HOME       = '${ARROW_HOME}
+   echo '2. CC               = '${CC}
+   echo '3. CXX        	     = '${CXX}
+   echo '4. Python3[venv]    = '${VENV_PYTHON3_EXECUTABLE}
+   echo '5. Python3[conda]   = '${CONDA_PYTHON3_EXECUTABLE}
+   echo '6. ClangTools       = '${CLANG_TOOLS}
+   echo '7. BuildType        = '${ARROW_BUILD_TYPE}
+}
+
+alias arrow_info=info

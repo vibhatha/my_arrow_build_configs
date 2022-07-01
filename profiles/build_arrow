@@ -1,0 +1,77 @@
+#!/bin/bash
+
+cpp_build() {
+
+cmake -DCMAKE_INSTALL_PREFIX=$ARROW_HOME \
+                      -DCMAKE_C_COMPILER=${CC} \
+                      -DCMAKE_CXX_COMPILER=${CXX} \
+		      -DCMAKE_INSTALL_LIBDIR=lib \
+		      -DCMAKE_BUILD_TYPE=debug \
+		      -DARROW_WITH_BZ2=ON \
+		      -DARROW_WITH_ZLIB=ON \
+		      -DARROW_WITH_ZSTD=ON \
+		      -DARROW_WITH_LZ4=ON \
+		      -DARROW_WITH_SNAPPY=ON \
+		      -DARROW_WITH_BROTLI=ON \
+		      -DARROW_PLASMA=OFF \
+		      -DARROW_PARQUET=ON \
+		      -DARROW_PYTHON=ON \
+		      -DARROW_DATASET=ON \
+		      -DPARQUET_REQUIRE_ENCRYPTION=ON \
+		      -DARROW_JEMALLOC=OFF \
+		      -DARROW_BUILD_TESTS=ON \
+		      -DARROW_DEPENDENCY_SOURCE=AUTO \
+		      -DARROW_INSTALL_NAME_RPATH=OFF \
+                       -DARROW_EXTRA_ERROR_CONTEXT=ON \
+        	              -DARROW_BUILD_EXAMPLES=ON \
+		      -DBUILD_WARNING_LEVEL=CHECKIN \
+		      -DARROW_USE_ASAN=OFF \
+		      -DARROW_USE_TSAN=OFF \
+                       -DARROW_USE_UBSAN=OFF \
+		      -DARROW_SUBSTRAIT=ON \
+		      -GNinja \
+                       -DClangTools_PATH=${CLANG_TOOLS} \
+		      -DPython3_EXECUTABLE=$(which python3) \
+		      ..
+
+}
+
+cpp_benchmark_build() {
+
+cmake -DCMAKE_INSTALL_PREFIX=$ARROW_HOME \
+                      -DCMAKE_C_COMPILER=${CC} \
+                      -DCMAKE_CXX_COMPILER=${CXX} \
+		      -DCMAKE_INSTALL_LIBDIR=lib \
+		      -DCMAKE_BUILD_TYPE=debug \
+		      -DARROW_WITH_BZ2=ON \
+		      -DARROW_WITH_ZLIB=ON \
+		      -DARROW_WITH_ZSTD=ON \
+		      -DARROW_WITH_LZ4=ON \
+		      -DARROW_WITH_SNAPPY=ON \
+		      -DARROW_WITH_BROTLI=ON \
+		      -DARROW_PLASMA=OFF \
+		      -DARROW_PARQUET=ON \
+		      -DARROW_PYTHON=ON \
+		      -DARROW_DATASET=ON \
+		      -DPARQUET_REQUIRE_ENCRYPTION=ON \
+		      -DARROW_JEMALLOC=OFF \
+		      -DARROW_BUILD_TESTS=ON \
+		      -DARROW_DEPENDENCY_SOURCE=AUTO \
+		      -DARROW_INSTALL_NAME_RPATH=OFF \
+                       -DARROW_EXTRA_ERROR_CONTEXT=ON \
+        	              -DARROW_BUILD_EXAMPLES=ON \
+		      -DBUILD_WARNING_LEVEL=CHECKIN \
+		      -DARROW_USE_ASAN=OFF \
+		      -DARROW_USE_TSAN=OFF \
+                       -DARROW_USE_UBSAN=OFF \
+		      -DARROW_SUBSTRAIT=ON \
+		      -DARROW_BUILD_BENCHMARKS=ON \
+		      -GNinja \
+                       -DClangTools_PATH=${CLANG_TOOLS} \
+		      -DPython3_EXECUTABLE=$(which python3) \
+		      ..
+
+}
+
+alias arrow_cpp_build=cpp_build
+alias arrow_cpp_benchmark_build=cpp_benchmark_build

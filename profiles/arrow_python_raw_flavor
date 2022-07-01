@@ -1,0 +1,50 @@
+#DYLD_LIBRARY_PATH
+
+export BASE_ARROW_DIR=/Users/vibhatha/github/fork
+export ARROW_CONDA_HOME=${CONDA_PREFIX}
+
+
+IS_CONDA=${CONDA_BUILD}
+
+if [ ${IS_CONDA} -eq 1 ]
+then
+
+echo "-----------"
+echo "CONDA BUILD"
+echo "-----------"
+export ARROW_HOME=${ARROW_CONDA_HOME}
+else
+
+echo "---------------"
+echo "NON-CONDA BUILD"
+echo "---------------"
+export ARROW_HOME=${BASE_ARROW_DIR}/dist
+export DYLD_LIBRARY_PATH=${BASE_ARROW_DIR}/dist/lib:$DYLD_LIBRARY_PATH
+
+fi
+
+# BUILD PYTHON
+
+export PYARROW_WITH_PARQUET=1
+
+export PYARROW_WITH_DATASET=1
+
+export ARROW_BUILD_TYPE=debug
+
+export PYARROW_WITH_SUBSTRAIT=1
+
+export PYARROW_WITH_PARQUET_ENCRYPTION=1
+
+alias pb_inplace="python setup.py build_ext --inplace"
+alias pb_dist="python setup.py build_ext --build-type=$ARROW_BUILD_TYPE --bundle-arrow-cpp bdist_wheel"
+
+export ARROW_TEST_DATA=${BASE_ARROW_DIR}/arrow/testing/data
+export PARQUET_TEST_DATA="${BASE_ARROW_DIR}/arrow/cpp/submodules/parquet-testing/data"
+
+export CC=/Users/vibhatha/tools/arrow/lint/clang+llvm-12.0.0-x86_64-apple-darwin/bin/clang
+export CXX=/Users/vibhatha/tools/arrow/lint/clang+llvm-12.0.0-x86_64-apple-darwin/bin/clang++
+
+
+export CONDA_PYTHON3_EXECUTABLE="/Users/vibhatha/opt/anaconda3/envs/pyarrow-dev/bin/python3"
+export VENV_PYTHON3_EXECUTABLE="/Users/vibhatha/venv/pyarrow_dev/bin/python3"
+export CLANG_TOOLS="/Users/vibhatha/tools/arrow/lint/clang+llvm-12.0.0-x86_64-apple-darwin/bin"
